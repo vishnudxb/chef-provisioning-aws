@@ -12,6 +12,14 @@ class Chef::Resource::AwsNetworkInterface < Chef::Provisioning::AWSDriver::AWSRe
     name =~ /^eni-[a-f0-9]{8}$/ ? name : nil
   }
 
+  attribute :subnet, kind_of: String
+
+  attribute :private_ip_address, kind_of: String
+
+  attribute :description, kind_of: String
+
+  attribute :security_groups, kind_of: [Array, String]
+
   def aws_object
     result = driver.ec2.network_interfaces[network_interface_id]
     result && result.exists? ? result : nil
